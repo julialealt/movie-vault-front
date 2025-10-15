@@ -10,10 +10,12 @@ export const Card = styled.div`
   border-radius: 8px;
   border: 1px solid #27272A;
   background: #09090B;
-  transition: box-shadow 0.3s ease;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     ${mixins.shadow.level2}
+    transform: scale(1.03) translateY(-5px);
   }
 `
 
