@@ -36,8 +36,8 @@ export const StyledButton = styled.button<{  variant?: 'primary' | 'secondary' |
 
   ${props => props.variant === 'outlined' && css`
     background-color: transparent;
-    border: 1px solid ${props.theme["zinc-400"]};
-    color: ${props.theme["zinc-400"]};
+    border: 1px solid ${props.theme["zinc-300"]};
+    color: ${props.theme["zinc-300"]};
   `}
 
   ${props => props.variant === 'danger' && css`
