@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -34,7 +34,7 @@ const createMovieFormSchema = z.object({
     }, `Tamanho máximo do arquivo é 50MB`)
     .refine(
       files => ACCEPTED_IMAGE_TYPES.includes(files[0]?.type),
-      "Formato do arquivo inválido"
+      "Formato de arquivo inválido"
     ),
   rating: z.number().min(0).max(5),
 })
@@ -43,7 +43,11 @@ type CreateMovieForm = z.infer<typeof createMovieFormSchema>
 
 const stars = [1, 2, 3, 4, 5]
 
-export function CreateModal() {
+interface CreateModalProps {
+  initialTitle?: string;
+}
+
+export function CreateModal({ initialTitle }: CreateModalProps) {
   const theme = useTheme()
   const queryClient = useQueryClient()
 
@@ -57,6 +61,7 @@ export function CreateModal() {
   } = useForm<CreateMovieForm>({
     resolver: zodResolver(createMovieFormSchema),
     defaultValues: {
+      title: initialTitle || '',
       rating: 0,
     },
   })
@@ -65,6 +70,10 @@ export function CreateModal() {
   const coverFileName = useMemo(() => {
     return coverFile && coverFile.length > 0 ? coverFile[0].name : null
   }, [coverFile])
+
+  useEffect(() => {
+    reset({ title: initialTitle })
+  }, [initialTitle, reset])
 
   const { mutateAsync: createMovieFn } = useMutation({
     mutationFn: createMovie,
@@ -111,7 +120,7 @@ export function CreateModal() {
           <Input
             id="title"
             placeholder="Digite o título do filme"
-            className="h-12 rounded-lg border-zinc-800 bg-zinc-950 placeholder:text-zinc-500 focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors hover:border-zinc-700"
+            className="h-12 rounded-lg border-zinc-800 bg-zinc-950 placeholder:text-zinc-500 focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors hover:border-zinc-700 text-white"
             {...register('title')}
           />
           {errors.title && (
@@ -125,7 +134,7 @@ export function CreateModal() {
           </Label>
           <label
             htmlFor="cover-upload"
-            className={`flex h-12 w-full cursor-pointer items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 transition-colors hover:border-zinc-700 ${coverFileName ? 'text-zinc-300' : 'text-zinc-500'}`}
+            className={`flex h-12 w-full cursor-pointer items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 transition-colors hover:border-zinc-700 ${coverFileName ? 'text-white' : 'text-zinc-500'}`}
           >
             <Upload className="h-4 w-4" />
             <span className="flex-1 text-sm">
@@ -151,7 +160,7 @@ export function CreateModal() {
           <Textarea
             id="synopsis"
             placeholder="Descreva brevemente o filme"
-            className="h-[120px] resize-none rounded-lg border-zinc-800 bg-zinc-950 placeholder:text-zinc-500 focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors hover:border-zinc-700"
+            className="h-[120px] resize-none rounded-lg border-zinc-800 bg-zinc-950 placeholder:text-zinc-500 focus:border-primary focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors hover:border-zinc-700 text-white"
             {...register('synopsis')}
           />
           {errors.synopsis && (

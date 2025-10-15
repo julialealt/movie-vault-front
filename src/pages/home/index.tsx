@@ -12,6 +12,14 @@ export function Home() {
   const navigate = useNavigate()
 
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [initialTitle, setInitialTitle] = useState('')
+  const [titleForModal, setTitleForModal] = useState('')
+
+  const handleOpenModal = () => {
+    setTitleForModal(initialTitle)
+    setInitialTitle('')
+    setIsCreateModalOpen(true)
+  }
 
   return (
     <PageContainer>
@@ -26,15 +34,22 @@ export function Home() {
       <ContentContainer>
         <InputContainer>
           <Film size={20} color={theme["zinc-400"]} />
-          <InputStyled type="text" placeholder="Qual filme você assistiu hoje?" />
+          <InputStyled
+            type="text"
+            placeholder="Qual filme você assistiu hoje?"
+            value={initialTitle}
+            onChange={(e) => setInitialTitle(e.target.value)}
+          />
         </InputContainer>
 
         <AlertDialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
           <AlertDialogTrigger asChild>
-            <Button><Plus size={16} color={theme.black} /> Adicionar filme</Button>
+            <Button onClick={handleOpenModal}>
+              <Plus size={16} color={theme.black} /> Adicionar filme
+            </Button>
           </AlertDialogTrigger>
 
-          <CreateModal />
+          <CreateModal initialTitle={titleForModal} />
         </AlertDialog>
       </ContentContainer>
 
