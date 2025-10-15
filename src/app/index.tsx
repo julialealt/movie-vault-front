@@ -3,6 +3,7 @@ import { defaultTheme } from "../styles/themes/default"
 import { BrowserRouter } from "react-router"
 import { Router } from "../routes/router"
 import { GlobalStyle } from "../styles/global"
+import { Toaster } from "sonner"
 
 export function App() {
   const theme = defaultTheme
@@ -12,6 +13,7 @@ export function App() {
       <BrowserRouter>
         <Router />
         <GlobalStyle />
+        <Toaster richColors theme="dark" position="bottom-right" />
       </BrowserRouter>
     </ThemeProvider>
   )
