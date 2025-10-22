@@ -13,8 +13,15 @@ export const PageContainer = styled.div`
 
 export const BookList = styled.div`
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 20px 20px;
   padding-bottom: 32px;
+`
+
+export const Description = styled.p`
+  font-size: 16px;
+  font-weight: 400;
+  color: ${(props) => props.theme['zinc-300']};
 `

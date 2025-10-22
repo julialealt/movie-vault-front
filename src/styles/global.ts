@@ -23,4 +23,27 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     line-height: 150%;
   }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${props => props.theme['dark-stroke']};
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: ${props => props.theme['zinc-900']};
+    transition: background-color 0.3s ease-in-out;
+    cursor: default;
+  }
 `

@@ -13,7 +13,7 @@ export function App() {
       <BrowserRouter>
         <Router />
         <GlobalStyle />
-        <Toaster richColors theme="dark" position="bottom-right" />
+        <Toaster richColors theme="dark" position="top-right" />
       </BrowserRouter>
     </ThemeProvider>
   )
