@@ -44,10 +44,11 @@ type CreateMovieForm = z.infer<typeof createMovieFormSchema>
 const stars = [1, 2, 3, 4, 5]
 
 interface CreateModalProps {
-  initialTitle?: string;
+  initialTitle?: string
+  onClose: (open: boolean) => void
 }
 
-export function CreateModal({ initialTitle }: CreateModalProps) {
+export function CreateModal({ initialTitle, onClose }: CreateModalProps) {
   const theme = useTheme()
   const queryClient = useQueryClient()
 
@@ -80,7 +81,13 @@ export function CreateModal({ initialTitle }: CreateModalProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['movies'] })
       toast.success('Filme adicionado com sucesso!')
-      reset()
+      reset({
+        title: '',
+        synopsis: '',
+        cover: undefined,
+        rating: 0,
+      })
+      onClose(false)
     },
     onError: () => {
       toast.error('Ocorreu um erro ao adicionar o filme')

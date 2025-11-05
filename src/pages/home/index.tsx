@@ -49,7 +49,7 @@ export function Home() {
             </Button>
           </AlertDialogTrigger>
 
-          <CreateModal initialTitle={titleForModal} />
+          <CreateModal initialTitle={titleForModal} onClose={setIsCreateModalOpen} />
         </AlertDialog>
       </ContentContainer>
 

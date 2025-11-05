@@ -31,7 +31,7 @@ export function Header({ variant = 'primary' }: HeaderProps) {
               <Button><Plus size={16} color={theme.black} /> Adicionar filme</Button>
             </AlertDialogTrigger>
 
-            <CreateModal />
+            <CreateModal onClose={setIsCreateModalOpen} />
           </AlertDialog>)}
       </HeaderTop>
 
