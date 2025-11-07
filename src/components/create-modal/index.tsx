@@ -63,6 +63,8 @@ export function CreateModal({ initialTitle, onClose }: CreateModalProps) {
     resolver: zodResolver(createMovieFormSchema),
     defaultValues: {
       title: initialTitle || '',
+      synopsis: '',
+      cover: undefined,
       rating: 0,
     },
   })
@@ -81,12 +83,7 @@ export function CreateModal({ initialTitle, onClose }: CreateModalProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['movies'] })
       toast.success('Filme adicionado com sucesso!')
-      reset({
-        title: '',
-        synopsis: '',
-        cover: undefined,
-        rating: 0,
-      })
+      reset()
       onClose(false)
     },
     onError: () => {
